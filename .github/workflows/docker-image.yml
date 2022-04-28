@@ -1,0 +1,14 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [feature]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image and run test
+      - run: docker build -t caisser/docker-react -f Dockerfile.dev .
+      - run: docker run caisser/docker-react npm run test
