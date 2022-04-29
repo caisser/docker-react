@@ -2,9 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-
     branches: [master]
-
 
 jobs:
   build:
@@ -16,7 +14,7 @@ jobs:
       - run: docker run -e CI=true caisser/docker-react npm run test -- --coverage
 
       - name: Generate deployment package
-          run: zip -r deploy.zip . -x '*.git*'
+        run: zip -r deploy.zip . -x '*.git*'
 
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v20
@@ -37,4 +35,3 @@ jobs:
           deployment_package: deploy.zip
           # Whether the action should skip creating a new bucket and use the given one to upload the deployment package to instead. When omitted the actions will (try to) create a new one during deployment.
           existing_bucket_name: elasticbeanstalk-us-east-1-875588974749
-
